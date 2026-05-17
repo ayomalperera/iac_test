@@ -1,0 +1,8 @@
+haproxy_frontend_port: 80
+
+haproxy_stats_port: 8084
+haproxy_stats_uri: /stats
+haproxy_stats_user: admin
+haproxy_stats_password: admin@123
+
+haproxy_metrics_uri: /metrics

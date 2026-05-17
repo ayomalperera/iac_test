@@ -1,0 +1,8 @@
+---
+- name: Configure Apache Servers
+  hosts: apache
+  become: yes
+
+  roles:
+    - common
+    - apache

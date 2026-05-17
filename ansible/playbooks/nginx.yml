@@ -1,0 +1,8 @@
+---
+- name: Configure NGINX Servers
+  hosts: nginx
+  become: yes
+
+  roles:
+    - common
+    - nginx

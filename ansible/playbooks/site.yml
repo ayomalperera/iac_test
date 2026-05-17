@@ -1,0 +1,24 @@
+---
+- name: Common
+  hosts: all
+  become: yes
+  roles:
+    - common
+
+- name: HAProxy
+  hosts: loadbalancer
+  become: yes
+  roles:
+    - haproxy
+
+- name: Apache
+  hosts: apache
+  become: yes
+  roles:
+    - apache
+
+- name: Nginx
+  hosts: nginx
+  become: yes
+  roles:
+    - nginx

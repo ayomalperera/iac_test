@@ -1,0 +1,19 @@
+---
+haproxy_frontend_port: 80
+
+haproxy_stats_port: 8404
+haproxy_stats_uri: /stats
+haproxy_stats_user: admin
+haproxy_stats_password: admin@123
+
+haproxy_metrics_uri: /metrics
+
+backend_servers:
+  - name: web01-nginx
+    host: 10.0.1.10
+    port: 80
+
+  - name: web01-apache
+    host: 10.0.1.10
+    port: 80
+

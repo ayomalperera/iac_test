@@ -1,0 +1,9 @@
+---
+- name: Configure Timezone
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Set timezone
+      timezone:
+        name: "{{ timezone }}"
