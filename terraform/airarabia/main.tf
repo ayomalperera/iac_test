@@ -263,7 +263,7 @@ resource "aws_instance" "haproxy" {
   instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.haproxy_sg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   key_name                    = aws_key_pair.airarabia.key_name
 
   tags = {
@@ -272,6 +272,24 @@ resource "aws_instance" "haproxy" {
     Environment = "production"
   }
 }
+
+# PUBLIC ELASTIC IP
+
+resource "aws_eip" "haproxy_eip" {
+  domain = "vpc"
+
+  tags = {
+    Name = "${var.project_name}-haproxy-eip"
+  }
+}
+
+resource "aws_eip_association" "haproxy_eip_assoc" {
+  instance_id   = aws_instance.haproxy.id
+  allocation_id = aws_eip.haproxy_eip.id
+}
+
+
+
 # SSH KEYS
 
 resource "aws_key_pair" "airarabia" {
@@ -318,7 +336,7 @@ resource "local_file" "ansible_inventory" {
 
   content = templatefile("${path.module}/inventory.tpl", {
 
-    haproxy_public_ip = aws_instance.haproxy.public_ip
+    haproxy_public_ip = aws_eip.haproxy_eip.public_ip
 
     web01_private_ip = aws_instance.app_servers["web01"].private_ip
 
